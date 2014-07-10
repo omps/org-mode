@@ -48,19 +48,19 @@
 	      ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
 ;; Capture templates
-(setq-org-default-notes-file "~/org/refile.org")
+(setq org-default-notes-file "~/org/refile.org")
 
 ;; C-c c to capture
 ;; capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/org/refile.org")
-	       "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+	       "* TODO %? \n%U\n%a\n" :clock-in t :clock-resume t)
 	      ("r" "respond" entry (file "~/org/refile.org")
 	       "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
 	      ("n" "note" entry (file "~/org/refile.org")
 	       "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
 	      ("j" "Journal" entry (file+datetree "~/org/diary.org")
-	       "* %?\n%U\n" :clock-in t :clock-resume t)
+	       "* %? \n%U\n" :clock-in t :clock-resume t)
 	      ("w" "org-protocol" entry (file "~/org/refile.org")
 	       "* TODO Review %c\n%U\n" :immediate-finish t)
 	      ("m" "Meeting" entry (file "~/org/refile.org")
@@ -75,5 +75,6 @@
   (interactive)
   (save-excursion
     (beginning-of-line 0)
-    (org-remove-empty-drawer-at (point))))
+    (org-remove-empty-drawer-at "LOGBOOK" (point))))
+
 (add-hook 'org-clock-out-hook 'omps/remove-empty-drawer-on-clock-out 'append)
