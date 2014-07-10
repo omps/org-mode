@@ -1,4 +1,5 @@
 ; -*- mode: elisp -*-
+;; based on http://doc.norang.ca/org-mode.html
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (require 'org)
@@ -13,7 +14,7 @@
 ;; org-mobile-pull to integrate the changes done on your mobile device.
 
 ;; org-agenda files
-(setq org-agenda-files "~/org")
+(setq org-agenda-files '("~/org"))
 
 ;; org mode global TODO keywords.
 (setq org-todo-keywords
@@ -68,3 +69,11 @@
 	       "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
 	      ("h" "Habit" entry (file "~/org/refile.org")
 	       "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+
+;; Remove empty drawers where the clock in and clock-out is set to zero
+(defun omps/remove-empty-drawer-on-clock-out ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line 0)
+    (org-remove-empty-drawer-at (point))))
+(add-hook 'org-clock-out-hook 'omps/remove-empty-drawer-on-clock-out 'append)
