@@ -1,6 +1,6 @@
 ####Om Ps Emacs Configuration
 
-#* Introduction
+#####* Introduction
 This contains configuration to my emacs. except .emacs all the other files will go to ~/.config/emacs/
 
 
