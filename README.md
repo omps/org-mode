@@ -1,9 +1,9 @@
-#+TITLE: Om Ps Emacs Configuration
+Om Ps Emacs Configuration
 
 * Introduction
 This contains configuration to my emacs. except .emacs all the other files will go to ~/.config/emacs/
 
-#+BEGIN_SRC emacs-org
+
 | Filename       | Description                               |
 |----------------+-------------------------------------------|
 | general.el     | my emacs general configuration            |
@@ -13,4 +13,3 @@ This contains configuration to my emacs. except .emacs all the other files will 
 | .emacs         | my .emacs configuration                   |
 | gnus.el        | my gmail configuration                    |
 
-#+END_SRC
