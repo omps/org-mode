@@ -1,4 +1,4 @@
-; -*- mode: elisp -*-
+; -*- mode: lisp -*-
 ;; based on http://doc.norang.ca/org-mode.html
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
