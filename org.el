@@ -78,3 +78,31 @@
     (org-remove-empty-drawer-at "LOGBOOK" (point))))
 
 (add-hook 'org-clock-out-hook 'omps/remove-empty-drawer-on-clock-out 'append)
+
+;; Refiling tasks
+;; Targets include this file and any file contributing to the agenfa - up to 9 levels deep
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+				 (org-agenda-files :maxlevel . 9))))
+
+;; use full outline paths for refile targets - file using IDO
+(setq org-refile-use-outline-path t)
+
+;; targets complete directly with IDO
+(setq org-outline-path-complete-in-steps nil)
+
+; Allow refile to create parent task with confirmation
+(setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+; Use IDO for both buffer and file completion and ido-everywhere to t
+(setq org-completion-use-ido t)
+;; further configuration is added to ido.el
+
+; use current window for indirect buffer display
+(setq org-indirect-buffer-dispay 'current-window)
+
+; exclude done tasks from refile targets.
+(defun omps/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets."
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+(setq org-refile-target-verify-function 'omps/verify-refile-target)
