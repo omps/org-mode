@@ -105,4 +105,37 @@
   "Exclude todo keywords with a done state from refile targets."
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
-(setq org-refile-target-verify-function 'omps/verify-refile-target)
+(setq org-refile-target-verify-function 'omps/verify-refile-target) ; to refile task to my todo.org file under Finances heading, Just put the cursor on the task hit C-c C-w and enter nor C-SPC sys RET and its done. IDO completion is awesome.
+
+;; Do not dim blocked tasks
+(setq org-agenda-dim-blocked-tasks nil)
+
+;; Compact the block agenda view
+(setq org-agenda-compact-blocks t)
+
+;; custom agenda command definitions
+(setq org-agenda-custom-commands
+      (quote (("N" "Notes" tag "NOTE"
+	       ((org-agenda-overriding-header "Notes")
+		(org-tags-match-list-sublevels t)))
+	      ("h" "Habits" tags-todo "STYLE=\"habit\""
+	       ((org-agenda-overriding-header "Habits")
+		(org-agenda-sorting-strategy
+		 '(todo-state-down effort-up category-keep))))
+	      (" " "Agenda"
+	       ((agenda "" nil)
+		(tags "REFILE"
+		      ((org-agenda-overriding-header "Tasks to Refile")
+		       (org-tags-match-list-sublevels nil)))
+		(tags-todo "-CANCELLED/!"
+			   ((org-agenda-overriding-header "Stuck Projects")
+			    (org-agenda-skip-function 'omps/skip-non-stuck-projects)
+			    (org-agenda-sorting-strategy
+			     '(category-keep))))
+		(tags-todo "-HOLD-CANCELLED/"
+			   ((org-agenda-overriding-header "Projects")
+			    (org-agenda-skip-function 'omps/skip-non-projects)
+			    (org-tags-match-list-sublevels 'indented)
+			    (org-agenda-sorting-strategy
+			     '(category-keep))))
+		(tags-todo "-CANCELLED/!NEXT"
