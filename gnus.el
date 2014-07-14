@@ -1,4 +1,7 @@
+;; (setq gnus-select-method '(nntp "news.gwene.org"))
+
 (setq gnus-select-method
+;     '(nntp "news.gwene.org")
       '(nnimap "gmail"
 	       (nnimap-address "imap.gmail.com")
 	       (nnimap-server-port 993)

@@ -86,3 +86,7 @@
 ;; 	     (progn
 ;; 	     (setq twittering-icon-mode t
 ;; 		   twittering-use-master-password t)))
+
+;; (require 'twittering-mode)
+(setq twittering-use-master-password t)
+(setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt")
