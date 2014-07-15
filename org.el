@@ -186,3 +186,16 @@
 		       (org-agenda-skip-function 'omps/skip-non-archivable-tasks)
 		       (org-tags-match-list-sublevels nil))))
 	       nil))))
+
+
+;; custome filters
+(defun omps/org-auto-exclude-function (tag)
+  "Automatic task exclusion in the agenda with / RET"
+  (and (cond
+	((string=tag "hold")
+	 t)
+	((string= tag "farm")
+	 t))
+       (concat "-" tag)))
+
+(setq org-agenda-auto-exclude-function 'omps/org-auto-exclude-function)
