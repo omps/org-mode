@@ -199,3 +199,31 @@
        (concat "-" tag)))
 
 (setq org-agenda-auto-exclude-function 'omps/org-auto-exclude-function)
+
+; Time clocking
+; Resume clocking task when emacs is restarted
+(org-clock-persistence-insinuate)
+; show lots of clocking history, makes easier to pick items off.
+(setq org-clock-history-length 23)
+; Resume clocking task on clock in if the clock is open
+(setq org-clock-in-resume t)
+; change task to next when clocking in
+(setq org-clock-in-switch-to-state 'omps/clock-in-to-next)
+; seperate drawers for clocking and logs
+(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+; save clock data and state changes and notes in the LOGBOOK drawer 
+(setq org-clock-into-drawer t)
+;; remove tasks which are getting clocked quickly i.e. tasks with 0:00 duration
+(setq org-clock-out-remove-zero-time-clocks t)
+; clock out when moving tasks to done state
+(setq org-clock-out-when-done t)
+; save the running clock and all clock history when exiting Emacs, load it back on startup.
+(setq org-clock-persist t)
+; do not prompt to resume an active clock
+(setq org-clock-persist-query-resume nil)
+; enable auto clock resolution for finding open clocks
+(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+; Include current clicking task in clock reports
+(setq org-clock-report-include-clocking-task t)
+
+(setq omps/keep-clock-running nil)
