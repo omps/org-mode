@@ -304,7 +304,7 @@ Switch projects and subprojects from NEXT back to TODO"
 	(when omps/keep-clock-running
 	  (omps/clock-in-default-task)))))))
 
-; defvar omps/organization-task-id " ; may skip this part.
+;; ; defvar omps/organization-task-id " ; may skip this part.
 
 (defun omps/clock-out-maybe ()
   (when (and omps/keep-clock-running
@@ -313,4 +313,4 @@ Switch projects and subprojects from NEXT back to TODO"
 	     (not org-clock-resolving-clocks-due-to-idleness))
     (omps/clock-in-parent-task)))
 
-(add-hook 'org-clock-out-hook ;omps/clock-out-maybe 'append)
+(add-hook 'org-clock-out-hook 'omps/clock-out-maybe 'append)
