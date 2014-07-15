@@ -314,3 +314,6 @@ Switch projects and subprojects from NEXT back to TODO"
     (omps/clock-in-parent-task)))
 
 (add-hook 'org-clock-out-hook 'omps/clock-out-maybe 'append)
+
+; use discrete minutes and no rounding increments.
+(setq org-time-stamp-rounding-minutes (quote (1 1)))
