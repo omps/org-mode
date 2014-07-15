@@ -246,4 +246,71 @@ Switch projects and subprojects from NEXT back to TODO"
   (save-restriction
     (widen)
     (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
-      (while (org-
+      (while (org-up-heading-safe)
+	(when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+	  (setq parent-task (point))))
+      (goto-char parent-task)
+      parent-task)))
+
+(defun omps/punch-in (arg)
+  "Start continuos clocking and set the default task to the selected task. if no task is selected set the organization task as the default task."
+  (interative "p")
+  (setq omps/keep-clock-running t)
+  (if (equal major-mode 'org-agenda-mode)
+      ;;
+      ;; Agenda
+      (let* ((marker (org-get-at-bol 'org-hd-marker))
+	     (tags (org-with-point-at marker (org-get-tags-at))))
+	(if (and (eq arg 4) tags)
+	    (org-agenda-clock-in '(16))
+	  (omps/clock-in-organization-task-as-default)))
+    ;; we are no longer in agenda
+    (save-restriction
+      (widen)
+      ; Find the tags for the current task
+      (if (and (equal major-mode 'org-mode) (not (org-before-first-heading-p)) (eq arg 4))
+	  (org-clock-in '(16))
+	(omps/clock-in-organization-task-as-default)))))
+
+(defun omps/punch-out ()
+  (interactive)
+  (setq omps/keep-clock-running nil)
+  (when (org-clock-is-active)
+    (org-clock-out))
+  (org-agenda-remove-restriction-lock))
+
+(defun omps/clock-in-default-task ()
+  (save-excursion
+    (org-with-point-at org-clock-default-task
+      (org-clock-in))))
+
+(defun omps/clock-in-parent-task ()
+  (save-excursion
+    (org-with-point-at org-clock-default-task
+      (org-clock-in))))
+
+(defun omps/clock-in-parent-task ()
+  "Move point to the parent (project) task if any and clock in"
+  (let ((parent-task))
+    (save-excursion
+      (save-restriction
+      (widen)
+      (while (and (not parent-task) (org-up-heading-safe))
+	(when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+	  (setq parent-task (point))))
+      (if parent-task
+	  (org-with-point-at parent-task
+	    (org-clock-in))
+	(when omps/keep-clock-running
+	  (omps/clock-in-default-task)))))))
+
+; defvar omps/organization-task-id " ; may skip this part.
+
+(defun omps/clock-out-maybe ()
+  (when (and omps/keep-clock-running
+	     (not org-clock-clocking-in)
+	     (marker-buffer org-clock-default-task)
+	     (not org-clock-resolving-clocks-due-to-idleness))
+    (omps/clock-in-parent-task)))
+
+(add-hook 'org-clock-out-hook ;omps/clock-out-maybe 'append)
