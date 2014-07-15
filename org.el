@@ -227,3 +227,23 @@
 (setq org-clock-report-include-clocking-task t)
 
 (setq omps/keep-clock-running nil)
+
+(defun omps/clock-in-to-next (kw)
+  "Switch task from TODO to NEXT when clocking in.
+Skips capture tasks, projects, and subprojects.
+Switch projects and subprojects from NEXT back to TODO"
+  (when (not (and (boundp 'org-capture-mode) org-capture-mode))
+    (cond
+     ((and (member (org-get-todo-state) (list "TODO"))
+	   (omps/is-task-p))
+      "NEXT")
+     ((and (member (org-get-todo-state) (list "NEXT"))
+	   (omps/is-project-p))
+      "TODO"))))
+
+(defun omps/find-project-task ()
+  "Move point to the parent (project) task if any"
+  (save-restriction
+    (widen)
+    (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
+      (while (org-
