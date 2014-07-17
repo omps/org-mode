@@ -317,3 +317,66 @@ Switch projects and subprojects from NEXT back to TODO"
 
 ; use discrete minutes and no rounding increments.
 (setq org-time-stamp-rounding-minutes (quote (1 1)))
+
+; shows one minute clocking gap
+(setq org-agenda-clock-consistency-checks
+      (quote (:max-duration "4:00"
+			    :min-duration 0
+			    :max-gap 0
+			    :gap-ok-around ("4:00"))))
+
+; tag setup.
+(setq org-tag-alist (quote ((:startgroup)
+			    ("@errand" . ?e)
+			    ("@office" . ?o)
+			    ("@home" . ?H)
+			    (:endgroup)
+			    ("WAITING" . ?w)
+			    ("HOLD" . ?h)
+			    ("PERSONAL" . ?P)
+			    ("WORK" . ?W)
+			    ("EMACS" . ?E)
+			    ("ORG" . ?O)
+			    ("OMPS" . ?B)
+			    ("NOTE" . ?n)
+			    ("CANCELLED" . ?c)
+			    ("FLAGGED" . ??))))
+
+;; Handelling notes
+
+;; Phone Call setup
+(require 'bbdb)
+(require 'bbdb-com)
+;; Keybindings for phone calls in the keybindings.el
+; Phone capture template handleing with BBDB loopup.
+; Adapted from code by Gregory J. Grubbs
+(defun omps/phone-call ()
+  "Return name and company info for caller from the bbdb lookup"
+  (interactive)
+  (let * (name rec caller)
+       (setq name (completing-read "Who is calling? "
+				   (bbdb-hashtable)
+				   'bbdb-complication-predicate
+				   'confirm))
+       (when (> (length name) 0)
+	 ; something was supplied - look it up in bbdb
+	 (setq rec
+	       (or (first
+		    (or (bbdb-search (bbdb-records) name nil nil)
+			(bbdb-search (bbdb-records) nil name nil))))
+	       name)))
+
+; build the bbdb link if we have a bbdb record, otherwise just retirn the name
+(setq caller (cond ((and rec (vector rec))
+		    (let ((name (bbdb-record-name rec))
+			  (company (bbdb-record-company rec)))
+		      (concat "[[bbdb:"
+			      name "]["
+			      name "]["
+			      (when company
+				(concat " - " company)))))
+		   (rec)
+		   (t "NameOfCaller")))
+(insert caller)))
+
+; Reminder setup
