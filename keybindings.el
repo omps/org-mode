@@ -13,3 +13,4 @@
 (global-set-key (kbd "<f11>") 'org-clock-goto)
 (global-set-key (kbd "C-<f11>") 'org-clock-in)
 (global-set-key "\C-cc" 'org-capture)
+(global-set-key (kbd "<f9> p") 'omps/phone-call)
