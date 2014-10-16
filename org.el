@@ -350,33 +350,38 @@ Switch projects and subprojects from NEXT back to TODO"
 ;; Keybindings for phone calls in the keybindings.el
 ; Phone capture template handleing with BBDB loopup.
 ; Adapted from code by Gregory J. Grubbs
-(defun omps/phone-call ()
-  "Return name and company info for caller from the bbdb lookup"
-  (interactive)
-  (let * (name rec caller)
-       (setq name (completing-read "Who is calling? "
-				   (bbdb-hashtable)
-				   'bbdb-complication-predicate
-				   'confirm))
-       (when (> (length name) 0)
-	 ; something was supplied - look it up in bbdb
-	 (setq rec
-	       (or (first
-		    (or (bbdb-search (bbdb-records) name nil nil)
-			(bbdb-search (bbdb-records) nil name nil))))
-	       name)))
+;; (defun omps/phone-call ()
+;;   "Return name and company info for caller from the bbdb lookup"
+;;   (interactive)
+;;   (let * (name rec caller)
+;;        (setq name (completing-read "Who is calling? "
+;; 				   (bbdb-hashtable)
+;; 				   'bbdb-complication-predicate
+;; 				   'confirm))
+;;        (when (> (length name) 0)
+;; 	 ; something was supplied - look it up in bbdb
+;; 	 (setq rec
+;; 	       (or (first
+;; 		    (or (bbdb-search (bbdb-records) name nil nil)
+;; 			(bbdb-search (bbdb-records) nil name nil))))
+;; 	       name))))
 
-; build the bbdb link if we have a bbdb record, otherwise just retirn the name
-(setq caller (cond ((and rec (vector rec))
-		    (let ((name (bbdb-record-name rec))
-			  (company (bbdb-record-company rec)))
-		      (concat "[[bbdb:"
-			      name "]["
-			      name "]["
-			      (when company
-				(concat " - " company)))))
-		   (rec)
-		   (t "NameOfCaller")))
-(insert caller)))
+;; ; build the bbdb link if we have a bbdb record, otherwise just retirn the name
+;; (setq caller (cond ((and rec (vector rec))
+;; 		    (let ((name (bbdb-record-name rec))
+;; 			  (company (bbdb-record-company rec)))
+;; 		      (concat "[[bbdb:"
+;; 			      name "]["
+;; 			      name "]["
+;; 			      (when company
+;; 				(concat " - " company)))))
+;; 		   (rec)
+;; 		   (t "NameOfCaller")))
+;; (insert caller)))
+
 
 ; Reminder setup
+
+; export to google calendar
+
+; (require 'org-gcal)

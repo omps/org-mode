@@ -24,15 +24,16 @@
 
 ; Disable the current buffers mark.
 (transient-mark-mode t)
+(visual-line-mode t)
 
 ; turn of all kind of modes, no menubar, toolbar.
-; (menu-bar-mode -1)
-;; (when (window-system)
-;;   (set-scroll-bar-mode 'nil)
-;;   (mouse-wheel-mode t)
-;;   (tooltip-mode -1))
-;; (tool-bar-mode -1)
-;; (blink-cursor-mode -1)
+ (menu-bar-mode -1)
+ (when (window-system)
+   (set-scroll-bar-mode 'nil)
+   (mouse-wheel-mode t)
+   (tooltip-mode -1))
+ (tool-bar-mode -1)
+ (blink-cursor-mode -1)
 
 ; turn on line numbers and column numbers
 ; (line-number-mode 1)
@@ -42,10 +43,10 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ; move around wrapped lines
-; (setq line-move-visual t)
+(setq line-move-visual t)
 
 ; Hide the mouse while typing
-; (setq make-pointer-invisible t)
+ (setq make-pointer-invisible t)
 
 ; split windows a bit better
 (setq split-height-threshold nil)
@@ -90,3 +91,11 @@
 ;; (require 'twittering-mode)
 (setq twittering-use-master-password t)
 (setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt")
+
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+;; (when window-system
+;;   (custom-set-:foreground "dim gray" :strike-through nil))))
+;;    '(org-done ((t (:foreground "PaleGreen" :weight normal :strike-through t))))
+;;    '(org-clock-overlay ((t (:background "SkyBlue4" :foreground "black"))))
+;;    '(org-headline-done ((((class color) (min-colors 16) (background dark)) (:foreground "LightSalmon" :strike-through t))))
+;;    '(outline-1 ((t (:inherit font-lock-function-name-face :foreground "cornflower blue"))))))
