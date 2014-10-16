@@ -1,6 +1,7 @@
 ; -*- mode: lisp -*-
 ;; keep track of loading time
 (defconst emacs-start-time (current-time))
+
 ;;(require use-package)
 (setq user-full-name "Om Prakash Singh"
       user-mail-address "ompnix@gmail.com")
@@ -19,6 +20,7 @@
 
 ; sytax highlighting for all buffers
 (global-font-lock-mode t)
+
 ; Don't warn me for bigger file unless they are 25 MB
 ; (setq large-file-warning-threshold (* 25 1024 1024))
 
@@ -52,26 +54,12 @@
 (setq split-height-threshold nil)
 (setq split-width-threshold 180)
 
-;; ; eshell settings
-;; (use-package eshell
-;; 	     :config
-;; 	     (progn
-;; 	       (defalias 'emacs 'find-file)
-;; 	       (setenv "TERM" "xterm-256color")
-;; 	       (setenv "PAGER" "less")
-;; 	       (use-package esh-opt
-;; 			    :config
-;; 			    (progn
-;; 			      ;; (set-face-attribute 'eshell-prompt nil :foreground "turquoisel")
-;; 			      (use-package em-cmpl)
-;; 			      (use-package em-prompt)
-;; 			      (use-package em-term)))))
 
 ;; ;; spellcheck and flyspell mode
-;; (setq-default ispell-program-name "aspell")
-;; (setq-ispell-personal-dictionary "~/.flydict"
-;; 				 ispell-extra-args '("--sug-mode=ultra" "--ignore=3"))
-;; (add-to-list 'ispell-skip-region-alist '("[^\000-377]+"))
+(setq-default ispell-program-name "aspell")
+(setq-ispell-personal-dictionary "~/.flydict"
+ 				 ispell-extra-args '("--sug-mode=ultra" "--ignore=3"))
+(add-to-list 'ispell-skip-region-alist '("[^\000-377]+"))
 
 ;; ; flyspell
 
@@ -79,18 +67,6 @@
 ;; 	     :config
 ;; 	     (define-key flyspell-mode-map (kbd "M-n") 'flyspell-goto-next-error)
 ;; 	     (define-eky flyspell-mode-map (kbd "M-.") 'ispell-word))
-
-;; ; twittering mode
-;; (use-package twittering-mode
-;; 	     :defer t
-;; 	     :config
-;; 	     (progn
-;; 	     (setq twittering-icon-mode t
-;; 		   twittering-use-master-password t)))
-
-;; (require 'twittering-mode)
-(setq twittering-use-master-password t)
-(setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt")
 
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 ;; (when window-system
