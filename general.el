@@ -48,25 +48,11 @@
 (setq line-move-visual t)
 
 ; Hide the mouse while typing
- (setq make-pointer-invisible t)
+(setq make-pointer-invisible t)
 
 ; split windows a bit better
 (setq split-height-threshold nil)
 (setq split-width-threshold 180)
-
-
-;; ;; spellcheck and flyspell mode
-(setq-default ispell-program-name "aspell")
-(setq-ispell-personal-dictionary "~/.flydict"
- 				 ispell-extra-args '("--sug-mode=ultra" "--ignore=3"))
-(add-to-list 'ispell-skip-region-alist '("[^\000-377]+"))
-
-;; ; flyspell
-
-;; (use-package flyspell
-;; 	     :config
-;; 	     (define-key flyspell-mode-map (kbd "M-n") 'flyspell-goto-next-error)
-;; 	     (define-eky flyspell-mode-map (kbd "M-.") 'ispell-word))
 
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 ;; (when window-system
