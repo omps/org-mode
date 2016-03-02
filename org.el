@@ -71,6 +71,7 @@
 	       "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
 ;; Remove empty drawers where the clock in and clock-out is set to zero
+;; 2 March 2016 https://stackoverflow.com/questions/21767471/org-capture-and-time-clocking-misbehaving/35344946#35344946
 (defun omps/remove-empty-drawer-on-clock-out ()
   (interactive)
   (save-excursion
